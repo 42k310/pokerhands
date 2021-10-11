@@ -1,0 +1,2 @@
+class HandMaster < ApplicationRecord
+end

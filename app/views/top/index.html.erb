@@ -1,0 +1,15 @@
+<%= form_tag({ controller: :top, action: :judge }, { :method => :post}) do %>
+  <%= text_field_tag('input') %>
+  <%= submit_tag %>
+<% end %>
+
+<% if params[:flash][:alert].present? %>
+  <% params[:flash][:alert].each do |err_msg| %>
+    エラー：<%= err_msg %><br>
+  <% end %>
+  手札：<%= params[:flash][:input] %>
+<% end %>
+<% unless flash[:result].blank? %>
+  役：<%= flash[:result] %><br>
+  手札：<%= flash[:input] %>
+<% end %>
