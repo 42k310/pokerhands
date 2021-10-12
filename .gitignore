@@ -20,3 +20,6 @@
 .pryrc
 .rubocop.yml
 .rspec
+
+# VSCode設定用ファイル
+/.vscode/*

@@ -1,5 +1,5 @@
 class TopController < ApplicationController
-  require_relative '../sevices/cards'
+  require_relative '../sevices/card'
   include Const
 
   def index; end
@@ -10,10 +10,10 @@ class TopController < ApplicationController
 
     err_msgs = cards.valid
     if err_msgs.present?
-      redirect_to root_path flash: { alert: err_msgs, input: input } and return
+      redirect_to root_path alert: err_msgs, input: input and return
     else
       result = cards.judge
-      redirect_to root_path flash: { result: result, input: input } and return
+      redirect_to root_path result: result, input: input and return
     end
   end
 end

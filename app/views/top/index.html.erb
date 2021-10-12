@@ -3,13 +3,15 @@
   <%= submit_tag %>
 <% end %>
 
-<% if params[:flash][:alert].present? %>
-  <% params[:flash][:alert].each do |err_msg| %>
-    エラー：<%= err_msg %><br>
+手札：<br>
+<%= params[:input] if params[:input].present? %><br><br>
+
+<% if params[:result].present? %>
+  判定結果：<br>
+  <%= params[:result] %>
+<% elsif params[:alert].present? %>
+  アラート：<br>
+  <% params[:alert].each do |alert|  %>
+    <%= alert %><br>
   <% end %>
-  手札：<%= params[:flash][:input] %>
-<% end %>
-<% unless flash[:result].blank? %>
-  役：<%= flash[:result] %><br>
-  手札：<%= flash[:input] %>
 <% end %>
