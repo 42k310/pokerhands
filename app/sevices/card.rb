@@ -72,7 +72,7 @@ class Card
       @cards.each do |card|
         number = card.split(REG_SUIT)[1]
 
-        unless /^1[0-3]/.match?(number) || /^[1-9]/.match?(number)
+        unless /^1(0|1|2|3)$/.match?(number) || /^[1-9]$/.match?(number)
           @err_msgs.push(ERR_NUMBER_FORMAT + card)
         end
       end
