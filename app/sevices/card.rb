@@ -53,15 +53,13 @@ class Card
     end
 
     def card_duplicate_check
-      return false if @cards.uniq.size == 5
+      unless @cards.uniq.size == @cards.size
+        @err_msgs.push(ERR_CARDS_DUPLICATE)
+      end
     end
 
     def suit_format_check
       @cards.each do |card|
-        if card.size > 3
-          @err_msgs.push(ERR_CARD_FORMAT + card)
-        end
-
         suit = card.split(REG_NUMBER)[0]
 
         unless REG_SUIT.match?(suit)
