@@ -59,6 +59,7 @@ class Card
     def suit_format_check
       @cards.each do |card|
         p card
+        p card.size
         if card.size > 3
           @err_msgs.push(ERR_CARD_FORMAT + card)
         end

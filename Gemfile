@@ -72,3 +72,4 @@ gem 'rubocop-rails'
 gem 'rubocop-rspec'
 gem 'rubocop-performance'
 
+gem 'grape'
