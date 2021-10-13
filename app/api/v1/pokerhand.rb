@@ -31,7 +31,7 @@ module V1
           cards = Card.new(input)
           e = cards.valid
 
-          if @errors.present?
+          if e.present?
             error = {}
             error[:card] = input
             error[:msgs] = e

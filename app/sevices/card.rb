@@ -57,7 +57,6 @@ class Card
     end
 
     def suit_format_check
-      # TODO: S****でも通過しちゃう
       @cards.each do |card|
         if card.size > 3
           @err_msgs.push(ERR_CARD_FORMAT + card)
