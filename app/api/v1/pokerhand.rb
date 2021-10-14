@@ -19,6 +19,7 @@ module V1
     end
 
     resource :pokerhand do
+      # http://localhost:3000/api/v1/pokerhand/
       desc '役&best判定'
       post '/' do
         inputs = params[:input]
