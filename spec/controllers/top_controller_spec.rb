@@ -1,81 +1,52 @@
 require 'rails_helper'
 
 describe TopController do
-  context '正常系' do
-    context '役判定' do
-      it 'ストレート・フラッシュ' do
+  describe 'index' do
+    it 'HTTPステータスが200' do
+      get :index
+      expect(response).to have_http_status(:ok)
+    end
+  end
+
+  describe 'judge' do
+    context '正常系' do
+      it 'HTTPステータスが302' do
         input = 'S1 S4 S3 S2 S5'
         post :judge, params: { input: input }
-        expect(response.body).to include 'ストレート・フラッシュ'
+        expect(response).to have_http_status(:found)
       end
 
-      it 'フォーカード' do
-        input = 'S1 H1 C1 D1 S5'
+      it 'リダイレクト先URLに「result」を含む' do
+        input = 'S1 S4 S3 S2 S5'
         post :judge, params: { input: input }
-        expect(response.body).to include 'フォーカード'
+        expect(response.body).to include('result')
       end
 
-      it 'フルハウス' do
-        input = 'S1 H1 D1 S2 H2'
+      it 'リダイレクト先URLに「alert」を含まない' do
+        input = 'S1 S4 S3 S2 S5'
         post :judge, params: { input: input }
-        expect(response.body).to include 'フルハウス'
+        expect(response.body).not_to include('alert')
+      end
+    end
+
+    context '異常系' do
+      it 'HTTPステータスが302' do
+        input = 'S100000'
+        post :judge, params: { input: input }
+        expect(response).to have_http_status(:found)
       end
 
-      it 'フラッシュ' do
-        input = 'S3 S5 S7 S9 S11'
+      it 'リダイレクト先URLに「result」を含まない' do
+        input = 'S100000'
         post :judge, params: { input: input }
-        expect(response.body).to include 'フラッシュ'
+        expect(response.body).not_to include('result')
       end
 
-      it 'ストレート（通常）' do
-        input = 'S1 S4 D3 H2 S5'
+      it 'リダイレクト先URLに「alert」を含む' do
+        input = 'S100000'
         post :judge, params: { input: input }
-        expect(response.body).to include 'ストレート'
-      end
-
-      it 'ストレート（マタギ）' do
-        input = 'S10 H11 D13 S12 C1'
-        post :judge, params: { input: input }
-        expect(response.body).to include 'ストレート'
-      end
-
-      it 'スリーカード' do
-        input = 'S1 D1 C1 S2 D5'
-        post :judge, params: { input: input }
-        expect(response.body).to include 'スリーカード'
-      end
-
-      it 'ツーペア' do
-        input = 'D3 C3 D2 S2 D5'
-        post :judge, params: { input: input }
-        expect(response.body).to include 'ツーペア'
-      end
-
-      it 'ワンペア' do
-        input = 'S1 D1 S3 D8 S5'
-        post :judge, params: { input: input }
-        expect(response.body).to include 'ワンペア'
-      end
-
-      it 'ノーハンド' do
-        input = 'S1 D4 S10 C13 C5'
-        post :judge, params: { input: input }
-        expect(response.body).to include 'ノーハンド'
+        expect(response.body).to include('alert')
       end
     end
   end
 end
-
-# context '異常系' do
-#   context 'cards' do
-#   end
-
-#   context 'card' do
-#   end
-
-#   context 'suit' do
-#   end
-
-#   context 'number' do
-#   end
-# end
